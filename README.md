@@ -11,7 +11,7 @@ A responsive data dashboard application that allows users to upload CSV/Excel fi
 
 ## Screenshot
 
-![Screenshot](assets/screenshot.png)
+![Screenshot](assets/screenshot_of_project.png)
 
 ## Technologies Used
 

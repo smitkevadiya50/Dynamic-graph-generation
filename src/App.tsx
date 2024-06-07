@@ -12,6 +12,10 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [dashboards, setDashboards] = useState<number[]>([1]);
 
+  const removeDashboard = (id: number) => {
+    setDashboards(dashboards.filter(dashboardId => dashboardId !== id));
+  };
+
   const handleFilesUploaded = (files: File[]) => {
     setLoading(true);
     const file = files[0];
@@ -62,7 +66,7 @@ const App: React.FC = () => {
           </div>
           <div className="flex flex-col xl:flex-row w-full space-y-4 xl:space-y-0 md:space-x-4">
             {dashboards.map((dashboardId) => (
-              <Dashboard key={dashboardId} data={data} />
+              <Dashboard key={dashboardId} data={data} onRemove={() => removeDashboard(dashboardId)} />
             ))}
           </div>
           <div className="w-full mt-4 p-4">

@@ -4,9 +4,10 @@ import Graph from './Graph';
 
 interface DashboardProps {
   data: any[];
+  onRemove: () => void;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ data }) => {
+const Dashboard: React.FC<DashboardProps> = ({ data, onRemove }) => {
   const [graphType, setGraphType] = useState<string>('Bar');
   const [xKey, setXKey] = useState<string>('');
   const [yKey, setYKey] = useState<string>('');
@@ -48,7 +49,7 @@ const Dashboard: React.FC<DashboardProps> = ({ data }) => {
       <div className="mb-4">
         <div className='flex justify-between items-center mb-4'>
         <div><h2 className="text-lg font-semibold mb-2">Graph Options:</h2></div>
-        <button className="bg-red-500 text-white px-2 py-1 rounded">
+        <button onClick={onRemove} className="bg-red-500 text-white px-2 py-1 rounded">
               Remove
             </button>
         </div>
