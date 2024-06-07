@@ -1,5 +1,5 @@
 // src/components/Dashboard.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Graph from './Graph';
 import Select from 'react-select';
 
@@ -17,7 +17,7 @@ const Dashboard: React.FC<DashboardProps> = ({ data, onRemove }) => {
   const [height, setHeight] = useState<number>(300);
   const [selectedXValues, setSelectedXValues] = useState<any[]>([]);
 
-  const processData = (data: any[]) => {
+  const processData = useCallback((data: any[]) => {
     if (!xKey || !yKey) return;
 
     const aggregatedData: { [key: string]: { count: number; total: number } } = {};
@@ -45,13 +45,13 @@ const Dashboard: React.FC<DashboardProps> = ({ data, onRemove }) => {
     }
 
     setGraphData(processedData);
-  };
+  }, [xKey, yKey, selectedXValues]);
 
   useEffect(() => {
     if (xKey && yKey) {
       processData(data);
     }
-  }, [xKey, yKey, data, selectedXValues]);
+  }, [xKey, yKey, data, selectedXValues, processData]); // Ensure 'processData' is included here
 
   const handleXValuesChange = (selectedOptions: any) => {
     if (selectedOptions === null) {
@@ -62,7 +62,7 @@ const Dashboard: React.FC<DashboardProps> = ({ data, onRemove }) => {
     }
   };
 
-  const xOptions = [...new Set(data.map(item => item[xKey]))].map(value => ({ value, label: value }));
+  const xOptions = Array.from(new Set(data.map(item => item[xKey]))).map(value => ({ value, label: value }));
 
   return (
     <div className="flex flex-col border-2 p-2 rounded-lg">
