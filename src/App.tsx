@@ -3,13 +3,14 @@ import React, { useState, useEffect } from 'react';
 import FilePicker from './components/FilePicker';
 import DataTable from './components/DataTable';
 import Dashboard from './components/Dashboard';
-import LoadingScreen from './components/LoadingScreen';
+import LoadingEffect from './components/LoadingScreen'; // Import the new loading component
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 
 const App: React.FC = () => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const [dashboards, setDashboards] = useState<number[]>([1]);
 
   const removeDashboard = (id: number) => {
@@ -17,8 +18,8 @@ const App: React.FC = () => {
   };
 
   const handleFilesUploaded = (files: File[]) => {
-    setLoading(true);
     const file = files[0];
+    setLoading(true);
     const reader = new FileReader();
 
     reader.onload = (event) => {
@@ -33,6 +34,9 @@ const App: React.FC = () => {
         const sheet = workbook.Sheets[sheetName];
         const jsonData = XLSX.utils.sheet_to_json(sheet);
         setData(jsonData);
+        setLoading(false);
+      } else {
+        setError('File type not supported');
         setLoading(false);
       }
     };
@@ -54,8 +58,9 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      {loading && <LoadingScreen />}
+      {loading && <LoadingEffect />} {/* Use the new loading component */}
       <FilePicker onFilesUploaded={handleFilesUploaded} />
+      {error && <p className="text-red-500">{error}</p>}
       {data.length > 0 && (
         <div className="flex flex-col w-full mt-4 p-4">
           <div className="flex justify-between mb-4">
