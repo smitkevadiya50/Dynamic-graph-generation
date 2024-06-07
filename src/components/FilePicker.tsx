@@ -26,7 +26,7 @@ const FilePicker: React.FC<{ onFilesUploaded: (files: File[]) => void }> = ({ on
   });
 
   return (
-    <div {...getRootProps()} className="w-full h-64 flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-md cursor-pointer">
+    <div {...getRootProps()} className="w-1/2 h-64 flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-xl cursor-pointer">
       <input {...getInputProps()} />
       {isDragActive ? <p>Drop the file here...</p> : (
         <p>Drag & drop data files here, or click to select data files</p>
