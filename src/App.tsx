@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import NavBar from './components/NavBar'; // Import the NavBar component
 import FilePicker from './components/FilePicker';
 import DataTable from './components/DataTable';

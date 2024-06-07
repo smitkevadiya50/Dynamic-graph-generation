@@ -13,7 +13,6 @@ import {
   Pie,
   Cell,
   Label,
-  ResponsiveContainer,
   Legend,
 } from 'recharts';
 import html2canvas from 'html2canvas';
