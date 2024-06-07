@@ -9,6 +9,10 @@ A responsive data dashboard application that allows users to upload CSV/Excel fi
 - **Data Editing**: Users can edit the data directly within the application.
 - **Dynamic Graphs**: Users can create multiple dashboards, each with its own set of graph options and graphs. The graphs update dynamically based on the data changes.
 
+## Screenshot
+
+![Screenshot](assets/screenshot.png)
+
 ## Technologies Used
 
 - **React**: A JavaScript library for building user interfaces.
