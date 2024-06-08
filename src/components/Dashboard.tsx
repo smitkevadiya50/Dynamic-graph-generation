@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Graph from './Graph';
 import Select from 'react-select';
+import graphTypes from './graphs';
 
 interface DashboardProps {
   data: any[];
@@ -9,7 +10,7 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ data, onRemove }) => {
-  const [graphType, setGraphType] = useState<string>('Bar');
+  const [graphType, setGraphType] = useState<string>(graphTypes[0].type);
   const [xKey, setXKey] = useState<string>('');
   const [yKey, setYKey] = useState<string>('');
   const [graphData, setGraphData] = useState<any[]>([]);
@@ -51,7 +52,7 @@ const Dashboard: React.FC<DashboardProps> = ({ data, onRemove }) => {
     if (xKey && yKey) {
       processData(data);
     }
-  }, [xKey, yKey, data, selectedXValues, processData]); // Ensure 'processData' is included here
+  }, [xKey, yKey, data, selectedXValues, processData]);
 
   const handleXValuesChange = (selectedOptions: any) => {
     if (selectedOptions === null) {
@@ -95,9 +96,9 @@ const Dashboard: React.FC<DashboardProps> = ({ data, onRemove }) => {
           <div>
             <label className="block mb-1">Graph Type:</label>
             <select value={graphType} onChange={(e) => setGraphType(e.target.value)} className="p-2 border rounded">
-              <option value="Line">Line</option>
-              <option value="Bar">Bar</option>
-              <option value="Pie">Pie</option>
+              {graphTypes.map(graph => (
+                <option key={graph.type} value={graph.type}>{graph.type}</option>
+              ))}
             </select>
           </div>
           <div>
